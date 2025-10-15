@@ -188,17 +188,17 @@ apiRouter.post(endpoint + 'seguranca/login', (req, res) => {
                     process.env.SECRET_KEY, {
                     expiresIn: 3600
                     })
-                res.status(200).json ({
+              return res.status(200).json ({
                     id: usuario.id,
                     login: usuario.login,
                     nome: usuario.nome,
                     roles: usuario.roles,
                     token: tokenJWT
                     })
-                    return
+                   
                 }
             }
-            res.status(200).json({ message: 'Login ou senha incorretos' })
+           return res.status(401).json({ message: 'Login ou senha incorretos' })
     })
     .catch (err => {
         res.status(500).json({
@@ -213,4 +213,3 @@ apiRouter.post(endpoint + 'seguranca/login', (req, res) => {
 module.exports = apiRouter;
 
 
-module.exports = apiRouter;
