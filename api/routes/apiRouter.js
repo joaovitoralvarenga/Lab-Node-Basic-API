@@ -42,7 +42,7 @@ let checkToken = (req, res, next) => {
 
 let isAdmin = (req, res, next) => {
     knex
-        .select ('*').from ('usuario').where({ id: req.usuarioId })
+        .select ('*').from ('usuarios').where({ id: req.usuarioId })
         .then ((usuarios) => {
             if (usuarios.length) {
                 let usuario = usuarios[0]
@@ -75,7 +75,7 @@ let isAdmin = (req, res, next) => {
 
 
 apiRouter.get(endpoint + 'produtos', checkToken, (req, res) => {
-    knex.select('*').from('produto')
+    knex.select('*').from('produtos')
     .then( produtos => res.status(200).json(produtos) )                       //Rota GET, utilizada para obter informações de um produto.
     .catch(err => {
         res.status(500).json({
@@ -84,7 +84,7 @@ apiRouter.get(endpoint + 'produtos', checkToken, (req, res) => {
 })
     
 apiRouter.get(endpoint + 'produtos/:id', checkToken,(req, res) => {
-    knex.select('*').from('produto').where({ id: req.params.id })         
+    knex.select('*').from('produtos').where({ id: req.params.id })         
     .then(produtos => {
         if (produtos.length > 0) {                                            //Rota GET, para obter um produto a partir do ID
             res.status(200).json(produtos[0])
@@ -100,7 +100,7 @@ apiRouter.get(endpoint + 'produtos/:id', checkToken,(req, res) => {
 })
 
 apiRouter.post(endpoint + 'produtos', checkToken, isAdmin, (req, res) => {   //Rota POST, para a criação de um produto, apenas admins tem acesso a ela.
-    knex('produto')
+    knex('produtos')
     .insert({
         descricao: req.body.descricao,
         valor: req.body.valor,
@@ -118,7 +118,7 @@ apiRouter.post(endpoint + 'produtos', checkToken, isAdmin, (req, res) => {   //R
 })
 
 apiRouter.put(endpoint + 'produtos/:id', checkToken, isAdmin, (req, res) => {  //Rota PUT, para atualização dos dados de um produto já existente. Apenas admins tem acesso a mesma.
-    knex('produto')
+    knex('produtos')
     .where({ id: req.params.id })
     .update({
         descricao: req.body.descricao,
@@ -136,7 +136,7 @@ apiRouter.put(endpoint + 'produtos/:id', checkToken, isAdmin, (req, res) => {  /
 })
 
 apiRouter.delete(endpoint + 'produtos/:id', checkToken, isAdmin, (req, res) => {  //Rota DELETE, remove uma instância e suas informações do banco de dados.
-    knex('produto')
+    knex('produtos')
     .where({ id: req.params.id })
     .del()
     .then(() => {
@@ -158,7 +158,7 @@ apiRouter.delete(endpoint + 'produtos/:id', checkToken, isAdmin, (req, res) => {
 
 
 apiRouter.post (endpoint + 'seguranca/register', (req, res) => {
-    knex ('usuario')
+    knex ('usuarios')
         .insert({
         nome: req.body.nome,
         login: req.body.login,
@@ -180,7 +180,7 @@ apiRouter.post (endpoint + 'seguranca/register', (req, res) => {
 
 apiRouter.post(endpoint + 'seguranca/login', (req, res) => {
     knex
-        .select('*').from('usuario').where( { login: req.body.login })
+        .select('*').from('usuarios').where( { login: req.body.login })
         .then( usuarios => {
             if(usuarios.length){
                 let usuario = usuarios[0]
