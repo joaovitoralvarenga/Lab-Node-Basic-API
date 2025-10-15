@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/app', express.static(path.join(__dirname, '/public')))
 
 let port = process.env.PORT || 3000
-app.listen(port)
+app.listen(PORT, () => { console.log(`Server running on port ${port}`) })
 
 const apiRouter = require('./api/routes/apiRouter.js')
 
