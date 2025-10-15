@@ -6,8 +6,7 @@ let apiRouter = express.Router()
 
 require ('dotenv').config()
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+
 
 const endpoint = '/'
 
