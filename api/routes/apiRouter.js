@@ -206,6 +206,27 @@ apiRouter.post(endpoint + 'seguranca/login', (req, res) => {
     })
 })
 
+apiRouter.get('/test-db', (req, res) => {
+    knex.raw('SELECT NOW()')
+        .then(result => {
+            res.json({ 
+                success: true, 
+                time: result.rows[0].now,
+                env: {
+                    hasSecretKey: !!process.env.SECRET_KEY,
+                    hasDatabaseUrl: !!process.env.DATABASE_URL,
+                    nodeEnv: process.env.NODE_ENV
+                }
+            });
+        })
+        .catch(err => {
+            res.status(500).json({ 
+                success: false, 
+                error: err.message 
+            });
+        });
+});
+
 
 
 
