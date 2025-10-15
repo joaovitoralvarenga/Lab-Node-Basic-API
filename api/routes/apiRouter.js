@@ -2,6 +2,7 @@
 const express = require ('express')
 const bcrypt = require ('bcryptjs')
 const jwt = require ('jsonwebtoken')
+const jwt = require ('jsonwebtoken')
 let apiRouter = express.Router()
 
 require ('dotenv').config()
