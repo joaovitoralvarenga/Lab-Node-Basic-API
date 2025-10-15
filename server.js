@@ -18,4 +18,4 @@ app.listen(PORT, () => { console.log(`Server running on port ${PORT}`) })
 
 const apiRouter = require('./api/routes/apiRouter.js')
 
-app.use ('/api/', apiRouter)
+app.use ('/api', apiRouter)
